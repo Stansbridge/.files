@@ -29,6 +29,9 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" yank into unnamed clipboard (yy should work)
+set clipboard=unnamed
+
 " Line numbers 
 set number
 
@@ -55,11 +58,6 @@ set mat=2
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-set expandtab
 
 " Linebreak on 500 characters
 set lbr
@@ -95,6 +93,9 @@ map <C-l> <C-W>l
 " Show line endings
 set list
 
+" Set relative line number
+set relativenumber
+
 " Set swap and backup file location
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -118,3 +119,6 @@ let g:ctrlp_user_command = {
     \ },
   \ 'fallback': 'find %s -type f'
   \ }
+
+" NERDTree Toggle
+map <C-n> :NERDTreeToggle<CR>
