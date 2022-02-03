@@ -1,3 +1,7 @@
+" NOTE:
+" node: npm install -g neovim
+" coc: :CocInstall coc-tsserver coc-json coc-html coc-css
+
 " colors
 colorscheme nord
 
@@ -61,11 +65,28 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" Tsuquyomi
-" let g:tsuquyomi_shortest_import_path = 1
-" nnoremap <leader>i :TsuImport<CR>
-" let g:tsuquyomi_singlequote_import = 1
-" autocmd FileType typescript nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
+" Plugins
+call plug#begin()
+
+Plug 'git@github.com:Numkil/ag.nvim.git'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'git@github.com:ctrlpvim/ctrlp.vim.git'
+Plug 'git@github.com:airblade/vim-gitgutter.git'
+Plug 'git@github.com:MaxMEllon/vim-jsx-pretty.git'
+Plug 'git@github.com:itchyny/lightline.vim.git'
+Plug 'git@github.com:preservim/nerdcommenter.git'
+Plug 'git@github.com:preservim/nerdtree.git'
+Plug 'git@github.com:arcticicestudio/nord-vim.git'
+Plug 'git@github.com:kshenoy/vim-signature.git'
+Plug 'git@github.com:tpope/vim-sleuth.git'
+Plug 'git@github.com:tpope/vim-surround.git'
+Plug 'git@github.com:leafgarland/typescript-vim.git'
+Plug 'git@github.com:yuezk/vim-js.git'
+Plug 'git@github.com:kevinoid/vim-jsonc.git'
+
+" Initialize plugin system
+call plug#end()
+" :PlugInstall
 
 " CoC.nvim
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
