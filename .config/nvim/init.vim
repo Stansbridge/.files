@@ -2,9 +2,6 @@
 " node: npm install -g neovim
 " coc: :CocInstall coc-tsserver coc-json coc-html coc-css
 
-" colors
-colorscheme nord
-
 " yank into unnamed clipboard (yy should work)
 set clipboard=unnamed
 
@@ -83,10 +80,27 @@ Plug 'git@github.com:tpope/vim-surround.git'
 Plug 'git@github.com:leafgarland/typescript-vim.git'
 Plug 'git@github.com:yuezk/vim-js.git'
 Plug 'git@github.com:kevinoid/vim-jsonc.git'
-
+Plug 'git@github.com:NLKNguyen/papercolor-theme.git'
+Plug 'git@github.com:rakr/vim-one.git'
 " Initialize plugin system
 call plug#end()
 " :PlugInstall
+
+set background=light
+" Colors
+
+" Nord
+" colorscheme nord
+" Lightline
+" let g:lightline = { 'colorscheme': 'nord' }
+
+" Paper
+colorscheme PaperColor
+let g:lightline = { 'colorscheme': 'PaperColor' }
+
+" One
+" colorscheme one
+" let g:lightline = { 'colorscheme': 'one' }
 
 " CoC.nvim
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -123,6 +137,22 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " set JSON to JSONC (allow comments)
 augroup JsonToJsonc
     autocmd! FileType json set filetype=jsonc
@@ -137,7 +167,3 @@ autocmd VimEnter * NERDTree | wincmd p
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
-" Lightline
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ }
