@@ -1,0 +1,12 @@
+name: Test Name
+description: File a test
+title: "Investigation: <your description here>"
+body:
+- type: input
+  id: test
+  attributes:
+    label: Test Details
+    description: This is the description of my test field
+    placeholder: aAbBcCdDeEfFgGhH
+    validations:
+      required: true
