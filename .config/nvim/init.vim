@@ -51,21 +51,19 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Show line endings (vim defaults)
-set list listchars=tab:>\ ,trail:-,eol:$
+" set showbreak=↪\ 
+" set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+" hi NonText ctermfg=16 guifg=#4a4a59
+" hi SpecialKey ctermfg=16 guifg=#4a4a59
 
 " Set relative line number
 set relativenumber
-
-" Get CtrlP to stop being annoying with folders and use the git files instead
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-  let g:ackprg = 'ag --vimgrep'
-endif
 
 " Plugins
 call plug#begin()
 
 Plug 'git@github.com:Numkil/ag.nvim.git'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'git@github.com:ctrlpvim/ctrlp.vim.git'
 Plug 'git@github.com:airblade/vim-gitgutter.git'
@@ -77,11 +75,11 @@ Plug 'git@github.com:arcticicestudio/nord-vim.git'
 Plug 'git@github.com:kshenoy/vim-signature.git'
 Plug 'git@github.com:tpope/vim-sleuth.git'
 Plug 'git@github.com:tpope/vim-surround.git'
-Plug 'git@github.com:leafgarland/typescript-vim.git'
 Plug 'git@github.com:yuezk/vim-js.git'
 Plug 'git@github.com:kevinoid/vim-jsonc.git'
 Plug 'git@github.com:NLKNguyen/papercolor-theme.git'
 Plug 'git@github.com:rakr/vim-one.git'
+Plug 'git@github.com:HerringtonDarkholme/yats.vim.git'
 " Initialize plugin system
 call plug#end()
 " :PlugInstall
@@ -139,6 +137,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent><nowait> <leader>k :call CocAction('jumpDefinition', v:false)<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -168,3 +167,22 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
     \ quit | endif
 " Show hidden files
 let NERDTreeShowHidden=1
+
+" CtrlP
+nnoremap <C-b> :CtrlPBuffer<CR>
+
+" stop being annoying with folders and use the git files instead
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+}
+EOF
