@@ -35,7 +35,8 @@ set shiftwidth=2
 " Smart indent
 set smartindent
 " Wrap lines
-set wrap
+" set wrap linebreak
+set nowrap
 
 " Treat long lines as break lines (useful when moving around in them):
 map j gj
@@ -59,6 +60,10 @@ map <C-l> <C-W>l
 " Set relative line number
 set relativenumber
 
+" Set foldtype for XML
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
 " Plugins
 call plug#begin()
 
@@ -80,6 +85,8 @@ Plug 'git@github.com:kevinoid/vim-jsonc.git'
 Plug 'git@github.com:NLKNguyen/papercolor-theme.git'
 Plug 'git@github.com:rakr/vim-one.git'
 Plug 'git@github.com:HerringtonDarkholme/yats.vim.git'
+Plug 'michaelb/vim-tips'
+
 " Initialize plugin system
 call plug#end()
 " :PlugInstall
@@ -93,12 +100,11 @@ set background=light
 " let g:lightline = { 'colorscheme': 'nord' }
 
 " Paper
+"
 colorscheme PaperColor
 let g:lightline = { 'colorscheme': 'PaperColor' }
 
-" One
-" colorscheme one
-" let g:lightline = { 'colorscheme': 'one' }
+nnoremap <leader>B :let &bg=(&bg=='light'?'dark':'light')<cr>
 
 " CoC.nvim
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -108,6 +114,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>fn :CocCommand workspace.renameCurrentFile<cr>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -162,6 +169,8 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 " Auto start NERDTree and put the cursor back in the other window.
 autocmd VimEnter * NERDTree | wincmd p
+autocmd BufEnter NERD_tree_* | execute 'normal R'
+
 " Exit Vim if NERDTree is the only window left.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
@@ -176,6 +185,12 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" Ag under cursor
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+" prevent jumping tab or window focus
+let g:ctrlp_switch_buffer='vt'
 
 " treesitter
 lua <<EOF
