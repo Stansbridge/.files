@@ -12,6 +12,31 @@ bindkey -v
 
 #source "$HOME/.local/share/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 #
-source "$HOME/.local/share/zsh-plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+source "$HOME/.local/share/zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
-export PROMPT="%F{cyan}${MODE_INDICATOR_PROMPT}%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+
+function zvm_after_select_vi_mode() {
+  case $ZVM_MODE in
+    $ZVM_MODE_NORMAL)
+      # Something you want to do...
+      export PROMPT="%F{cyan}>>%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+    ;;
+    $ZVM_MODE_INSERT)
+      # Something you want to do...
+      export PROMPT="%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+    ;;
+    $ZVM_MODE_VISUAL)
+      # Something you want to do...
+      export PROMPT="%F{cyan}||%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+    ;;
+    $ZVM_MODE_VISUAL_LINE)
+      # Something you want to do...
+      export PROMPT="%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+    ;;
+    $ZVM_MODE_REPLACE)
+      # Something you want to do...
+      export PROMPT="%F{yellow}%B[%3~]%f %(?.%F{green}+.%F{red}-)%f%b %# "
+    ;;
+  esac
+}
