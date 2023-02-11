@@ -6,9 +6,9 @@ return require('packer').startup(function(use)
   use 'simrat39/rust-tools.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'numToStr/Comment.nvim'
-  use 'chentoast/marks.nvim'
   use 'ms-jpq/coq_nvim'
   use 'jose-elias-alvarez/typescript.nvim'
+  use 'tpope/vim-sleuth'
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
   use {
     'nvim-telescope/telescope.nvim',

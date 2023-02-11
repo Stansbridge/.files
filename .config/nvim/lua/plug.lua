@@ -5,7 +5,13 @@ local map_opts = { noremap = true, silent = true }
 
 -- Colours
 vim.g.material_style = "lighter"
-require('material').setup()
+require('material').setup({
+  plugins = {
+    "gitsigns",
+    "nvim-tree",
+    "telescope"
+  }
+})
 vim.cmd 'colorscheme material'
 
 -- Mason
@@ -109,6 +115,7 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- Barbar
+map('n', 'tc', '<Cmd>BufferClose<CR>', map_opts)
 map('n', 'tp', '<Cmd>BufferPrevious<CR>', map_opts)
 map('n', 'tn', '<Cmd>BufferNext<CR>', map_opts)
 map('n', 'tmp', '<Cmd>BufferMovePrevious<CR>', map_opts)
@@ -138,16 +145,7 @@ map('n', '<leader>fg', telescope.live_grep, {}) --Requires ripgrep
 
 -- Nvim-Tree
 require("nvim-tree").setup({
-  follow = true,
   reload_on_bufenter = true,
-  view = {
-    width = 30,
-    mappings = {
-      list = {
-        { key = '<CR>', action = 'edit_no_picker' },
-      }
-    }
-  },
   git = {
     ignore = false
   },
@@ -185,12 +183,17 @@ vim.g.coq_settings = {
     clients = {
         lsp = {
           enabled = true,
+          resolve_timeout = 0.12,
         },
         tree_sitter = {
           enabled = true,
           weight_adjust = 1.0
         },
     },
+    keymap = {
+      jump_to_mark = '',
+      bigger_preview = '',
+    }
 }
 require('coq')
 
