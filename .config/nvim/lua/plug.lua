@@ -9,7 +9,8 @@ require('material').setup({
   plugins = {
     "gitsigns",
     "nvim-tree",
-    "telescope"
+    "telescope",
+    "nvim-web-devicons"
   }
 })
 vim.cmd 'colorscheme material'
@@ -32,7 +33,7 @@ local lsp_on_attach = function(client, bufnr)
   map('n', 'gd', vim.lsp.buf.definition, bufopts)
   map('n', 'K', vim.lsp.buf.hover, bufopts)
   map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  map('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  map('n', '<C-s>', vim.lsp.buf.signature_help, bufopts)
   map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   map('n', 'gr', vim.lsp.buf.references, bufopts)
   map('n', '<localleader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
@@ -101,10 +102,11 @@ map('n', '<leader>s', '<Cmd>TSJToggle<CR>', map_opts)
 
 -- TreeSitter
 require('nvim-treesitter.configs').setup({
-  ensure_installed = { "lua", "vim", "help", "rust", "typescript", "toml" },
+  ensure_installed = { "lua", "vim", "help", "rust", "typescript", "toml", "javascript" },
   highlight = {
     enable = true,
     disable = {},
+    additional_vim_regex_highlighting = true
   },
   context_commentstring = {
     enable = true
@@ -183,7 +185,8 @@ vim.g.coq_settings = {
     clients = {
         lsp = {
           enabled = true,
-          resolve_timeout = 0.12,
+          resolve_timeout = 0.20,
+          always_on_top = {}
         },
         tree_sitter = {
           enabled = true,

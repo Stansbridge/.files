@@ -26,25 +26,7 @@ require('deps')
 require('plug')
 
 -- Diagnostics
-local diagnostics_group = group('Diagnostics', { clear = true })
-local open_diagnostics = function()
-  vim.diagnostic.open_float(nil, { focusable = false })
-end
-vim.diagnostic.config({
-    virtual_text = false,
-    signs = true,
-    update_in_insert = true,
-    underline = true,
-    severity_sort = false,
-    float = {
-        border = 'rounded',
-        source = 'always',
-        header = '',
-        prefix = '',
-    },
-})
 sign({name = 'DiagnosticSignError', text = ''})
 sign({name = 'DiagnosticSignWarn', text = ''})
 sign({name = 'DiagnosticSignHint', text = ''})
 sign({name = 'DiagnosticSignInfo', text = ''})
-auto({ 'CursorHold' }, { pattern = "*", group = diagnostics_group, callback = open_diagnostics })

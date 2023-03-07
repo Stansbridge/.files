@@ -9,7 +9,10 @@ return require('packer').startup(function(use)
   use 'ms-jpq/coq_nvim'
   use 'jose-elias-alvarez/typescript.nvim'
   use 'tpope/vim-sleuth'
-  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
   use {
     'nvim-telescope/telescope.nvim',
     requires = {'nvim-lua/plenary.nvim'}
@@ -36,5 +39,9 @@ return require('packer').startup(function(use)
   use {
     'Wansmer/treesj',
     requires = { 'nvim-treesitter/nvim-treesitter' }
+  }
+  use {
+    'kkoomen/vim-doge',
+    run = ':call doge#install()'
   }
 end)
